@@ -14,7 +14,7 @@ import {
   Link
 } from 'react-router-dom'
 
-var currentLink = 'https://tylerjdev.github.io/'
+var currentLink = 'https://tylerjdev.github.io/Music-Artist-Lookup/'
 
 const NavBar = () => (
   <Router>
