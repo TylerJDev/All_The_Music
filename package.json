@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tylerjdev.github.io/tylerjdev.github.io",
+  "homepage": "https://tylerjdev.github.io/Music-Artist-Lookup",
   "dependencies": {
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
