@@ -1,0 +1,281 @@
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+#jumbotron-main {
+	padding-left: 50px;
+	padding-right: 50px;
+	height: 800px;
+	background-image: url('https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop='); 
+	background-size: cover;
+	background-position: 50% 20%;
+}
+
+#jumbo-text {
+	margin-top: 200px;
+	font-family: 'Open Sans', sans-serif;
+	color: white;
+}
+
+#jumbo-input-form {
+	margin-top: 50px;
+}
+
+#jumbo-input {
+	border-radius: 0px 0px 0px 0px;
+	border: none;
+	height: 40px;
+	width: 300px;
+	color: #212121;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 18px;
+	padding-top: 0px;
+}
+
+#jumbo-btn {
+	font-size: 18px;
+	height: 40px;
+	background-color: #777;
+	border: none;
+	color: #ddd;
+}
+
+/* Carousel */
+
+#main-carousel {
+	margin-top: 50px;
+}
+
+.carousel-album {
+	height: 250px !important;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-size: cover;
+	box-shadow: 0px 4px 6px 0px #777;
+}
+
+.album-pick-title {
+	font-size: 22px;
+	margin-bottom: 2px;
+	text-decoration: none;
+	color: #777;
+}
+
+.slick-prev {
+	font-size: 24px;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin-top: -10px;
+	padding: 0;
+	outline: none;
+	left: -25px;
+	display: block;
+	background: transparent;
+	border: none;
+}
+
+.slick-next {
+	font-size: 24px;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin-top: -10px;
+	padding: 0;
+	right: -25px;
+	display: block;
+	background: transparent;
+	border: none;
+}
+
+.slick-div {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/**/
+
+.artist-album-box {
+	height: 150px;
+	background-size: cover;
+	position: relative;
+}
+
+.artist-div {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.artist-header {
+	text-decoration: none;
+	color: #eee;
+	font-size: 20px;
+	text-shadow: 0 1px #212121;
+	margin: 5px;
+	position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.artist-header-media {
+	display: none;
+}
+
+#top-artist-header {
+	margin-bottom: 20px;
+}
+
+#top-tracks-div {
+	margin-bottom: 20px;
+}
+
+#top-track-header {
+	font-size: 20px;
+	color: #777;
+	margin-bottom: 20px;
+}
+
+.track-album-box {
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	display: inline-block;
+	box-shadow: 0px 4px 6px 0px #777;
+}
+
+.track-header {
+	display: inline-block;
+	margin: 10px;
+	font-size: 19px;
+	text-decoration: none;
+	color: #212121;
+}
+
+.track-artist {
+	display: inline;
+}
+
+.track-div {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1300px) {
+	#jumbotron-main {
+		height: 600px;
+		background-position: 50% 70%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#jumbotron-main, #jumbotron-about {
+		height: 500px;
+	}
+	
+	#jumbo-text {
+		margin-top: 150px;
+		text-shadow: 0 1px #212121;
+	}
+	
+	.artist-div {
+		border-bottom: 1px solid #eee;
+		padding-bottom: 5px;
+	}
+	
+	.artist-header {
+		display: none;
+	}
+	
+	.artist-album-box {
+		height: 50px;
+		width: 50px;
+		margin-top: 10px;
+		display: inline-block;
+	}
+	
+	.artist-header-media {
+		display: inline-block;
+		font-size: 19px;
+		color: #212121;
+		text-decoration: none;
+		margin-left: 5px;
+		
+	}
+
+	#jumbotron-main, #jumbotron-about {
+		height: 300px;
+	}
+	
+	#jumbo-text {
+		margin-top: 30px;
+	}
+	
+	#jumbo-main-header {
+		font-size: 24px;
+	}
+	
+	#jumbo-second-header {
+		font-size: 16px;
+	}
+	
+	#jumbo-input {
+		width: 100%;
+		background: transparent;
+		color: white;
+		border-bottom: 1px solid white;
+		text-align: center;
+		opacity: 1;
+	}
+	
+	
+	#jumbo-input::-webkit-input-placeholder { /* Chrome */
+	  color: white;
+	}
+	#jumbo-input:-ms-input-placeholder { /* IE 10+ */
+	  color: white;
+	}
+	#jumbo-input::-moz-placeholder { /* Firefox 19+ */
+	  color: white;
+	  opacity: 1;
+	}
+	#jumbo-input:-moz-placeholder { /* Firefox 4 - 18 */
+	  color: white;
+	  opacity: 1;
+	}
+	
+	#jumbo-btn {
+		display: none;
+	}
+	
+	/* Put after navbar breakpoint */
+	
+	.track-header {
+		font-size: 17px;
+	}
+	
+	.navbar-nav {
+		float: left;
+	}
+	
+	#input-form {
+		width: 100%;
+		float: left;
+	}
+	
+	#input-search {
+		width: 100% !important;
+	}
+	
+	.carousel-album {
+		height: 200px !important;
+	}
+	
+}
+
