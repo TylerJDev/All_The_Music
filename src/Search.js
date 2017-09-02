@@ -22,7 +22,7 @@ var oldQuery; // Keeps track of query
 var prevCall; // Used to keep track of previous page (currentPage), (explained more when it's used)
 var currentPage = 1; // Current page on the results of the API, (i.e, page 1 = results 1-84, page 2 = results 84 - 168)
 var page = 1; // This is used to keep track of the page, it resets back to 1 (1 being the default starting point) when a new page is called (currentPage)
-var currentLink = 'https://tylerjdev.github.io/Music-Artist-Lookup/'
+var currentLink = 'https://tylerjdev.github.io/'
 
 var searchFunc = function(query, pageOf) {
 	var queryLimit = 84; // Limit of results you'll get from the API

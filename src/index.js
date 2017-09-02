@@ -73,7 +73,7 @@ if (languageCurrent === null) {
 	$('#' + languageCurrent).addClass('selected-lang');
 }
 var mbidOf;
-var currentLink = 'https://tylerjdev.github.io/Music-Artist-Lookup/'
+var currentLink = 'https://tylerjdev.github.io/'
 
 if (typeArtistAlbum === 'artist') {
 ReactDOM.render(<MainIndex />, document.getElementById('main-body-container'));
