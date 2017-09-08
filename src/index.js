@@ -58,6 +58,7 @@ var albumHold;
 var tagsOfLast = [];
 var typeArtistAlbum = typeOf;
 var albumDetails;
+var trackDetails;
 var availResources = [];
 var availResourcesType = [];
 var supportedLanguages = ['en', 'es', 'de', 'fr', 'it', 'ja', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh']
@@ -74,6 +75,56 @@ if (languageCurrent === null) {
 }
 var mbidOf;
 var currentLink = 'https://tylerjdev.github.io/'
+
+if (typeArtistAlbum === 'track') { 
+	$.getJSON('https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=408297105ca57d03165dad654e5af37c&artist=' + artistOf + '&track=' + trackOf + '&lang=' + supportedLanguages[languageIndex] + '&format=json', function(response) {
+		var tResponse = response;
+		console.log(tResponse);
+		
+		/* if (tResponse.track.album === undefined) {
+			$.getJSON('https://musicbrainz.org/ws/2/artist?query=blu&limit=10&offset=1&fmt=json', function(response) {
+				
+			});
+		} */
+		
+		/* What I need from the track,
+		Playcount,
+		Listeners,
+		Mbid,
+		Tags,
+		Album > Title, (mbid) 
+		Last.FM Url(s)
+		Wiki
+		*/
+		var playCount = tResponse.track.playcount;
+		var listenersTrack = tResponse.track.listeners;
+		
+		function toNumber(num) {
+			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		
+		trackDetails = {
+			trackPlayCount: toNumber(playCount),
+			trackListeners: toNumber(listenersTrack),
+			trackMBID: tResponse.track.mbid,
+			trackTags: tResponse.track.toptags,
+			trackAlbumTitle: tResponse.track.album.title,
+			trackAlbumMBID: tResponse.track.album.mbid,
+			trackLastFmLinks: [tResponse.track.url, tResponse.track.album.url],
+			trackWiki: 'No description listed',
+		}
+		
+		if (tResponse.track.wiki != undefined) {
+			trackDetails.trackWiki = tResponse.track.wiki.summary;
+		}
+		
+		console.log(trackDetails);
+		
+		typeArtistAlbum = 'album'
+		albumOf = trackDetails.trackAlbumTitle;
+		AlbumGet(trackOf)
+	});
+}
 
 if (typeArtistAlbum === 'artist') {
 ReactDOM.render(<MainIndex />, document.getElementById('main-body-container'));
@@ -100,7 +151,7 @@ $.getJSON('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + a
 	headerDetails = {
 		nameOf: lastFM.artist.name, // Gets name of Artist from lastFM API
 		bioOf: bioBody.substring(0, 250) + '...', // Gets the 'bio' of that artist, but cuts string down to only 250 characters
-		listnersOf: toNumber(lastFM.artist.stats.listeners), // Gets the amount of listeners (coming from last.fm)
+		listenersOf: toNumber(lastFM.artist.stats.listeners), // Gets the amount of listeners (coming from last.fm)
 		photoOf: imagesArray[0], // Gets the photo, (Note: theres different sizes)
 		fullBioOf: bioBodyF, // Gets the 'full' bio
 	};
@@ -475,26 +526,44 @@ $.getJSON('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + a
 	
 	
 });
+/* For track page,
+Since search results, and toptracks results do not give the album title of that track, I will have to 'getinfo' on the artist name, and the track name, then I can get the album title, along with other information (i.e, mbid, tags) */
+}
 
-} else if (typeArtistAlbum === 'album') {
+var errorRerun = false;
+
+var AlbumGet = function(track) {
 	ReactDOM.render(<MainIndex />, document.getElementById('main-body-container'));
-	$.getJSON('https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=408297105ca57d03165dad654e5af37c&artist=' + artistOf + '&album=' + albumOf + '&lang=' + supportedLanguages[languageIndex] + '&format=json', function(response) { 
+	if (errorRerun === true) {
+		var getAlbumJson = 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=408297105ca57d03165dad654e5af37c&mbid=' + trackDetails.trackAlbumMBID + '&lang=' + supportedLanguages[languageIndex] + '&format=json'
+	} else {
+		var getAlbumJson = 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=408297105ca57d03165dad654e5af37c&artist=' + artistOf + '&album=' + albumOf + '&lang=' + supportedLanguages[languageIndex] + '&format=json'
+	}
+	
+	$.getJSON(getAlbumJson, function(response) { 
 		var albumResponse = response
-		console.log(albumResponse);	
+		console.log(albumResponse);
+
+		if (albumResponse.error != undefined && albumResponse.error === 6) { // only for track, find way for if click album
+			errorRerun = true;
+			AlbumGet(track);
+		}
 		
+		if (albumResponse.album != undefined) {
+			var albumPhoto = albumResponse.album.image[2];
+		};
 		
-		var albumPhoto = albumResponse.album.image[2];
 		var albumPhotoGet = $.map(albumPhoto, function(value, index) { // To turn the object into an array 'imagesArray'
 			return [value];
 		});
-		
+
 		console.log(albumPhotoGet);
 		
 		var albumSummary;
 		var albumContent;
 
 		
-		if (albumResponse.album.wiki === undefined) {
+		if (albumResponse.album === undefined || albumResponse.album.wiki === undefined) {
 			albumSummary = "No description listed. ";
 			albumContent = "No description listed. ";
 			
@@ -523,82 +592,187 @@ $.getJSON('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + a
 			albumWikiLink: albumResponse.album.url + '/+wiki/edit'
 		}
 		
+		var tracksRes = albumDetails.albumTracks;
+		var trackLen = tracksRes.track.length;
+		var trackArray;
+		
+		var routeMBID = false;
+		
+		if (albumResponse.album.tracks.track.length === 0 && trackDetails.trackAlbumMBID != undefined) {
+			routeMBID = true;
+			$.getJSON('http://musicbrainz.org/ws/2/release/' + trackDetails.trackAlbumMBID + '?inc=artist-credits+url-rels+labels+discids+recordings&fmt=json', function(response) {
+				var mbResponse = response
+				console.log(mbResponse);
+				
+				albumDetails.albumImage = 'coverartarchive.org/release/' + trackDetails.trackAlbumMBID + '/front-500.jpg'
+				
+				//var albumTracks = []
+				
+				var trackCount = 0;
+				
+				if (mbResponse.media.length > 1) {
+					for (var getAmount = 0; getAmount < mbResponse.media.length; getAmount++) {
+						for (var getTracks = 0; getTracks < mbResponse.media[getAmount].tracks.length; getTracks++) {
+							trackCount++;	
+						}
+					}
+					
+					function createTrackArr(x, y) {
+						trackArray = new Array(x);
+
+						for (var i = 0; i < x; i++) {
+							trackArray[i] = new Array(y);
+						}
+
+						return trackArray;
+					}	
+		
+					createTrackArr(trackCount, 1); //Gets the length of the album
+					
+					
+					
+				} else {
+					
+				}
+				
+		
+				var getTracks = 0;
+				var count = 0;
+				
+				for (var getMedia = 0; getMedia < mbResponse.media.length; getMedia++) {
+					var trackLen = mbResponse.media[getMedia].tracks.length; // should be 6
+					if (getTracks === trackLen) {
+						trackLen += mbResponse.media[getMedia].tracks.length;
+						count = 0;
+					}
+					while (getTracks < trackLen) {
+						
+						var durationOfTrack = mbResponse.media[getMedia].tracks[count].length / 1000;
+						
+						trackArray[getTracks] = {
+							track: {
+								duration: durationOfTrack,
+								name: mbResponse.media[getMedia].tracks[count].title,
+							}
+						}
+						getTracks++
+						count++
+					}
+				}
+				
+				albumDetails.albumTracks = trackArray;
+				trackLen = trackCount;
+				alert(trackLen);
+				console.log(trackArray);
+				/* What I need to get from MBID artist tracks..
+					Name - 
+					Duration -
+					Mbid (?)
+				*/
+				
+				
+				
+				//albumDetails.albumTracks = mbResponse.media
+				createTrackEnv(trackLen);
+			});
+		};
+		
 		//var albumSongCount = 0;
 		
-		function SongSection() {
-			return (
-				<div>
-					<h1 className="main-body-header">Songs</h1>
-					<div id="songs-album">
-					</div>
-				</div>
-			);
-		}
-		
-		ReactDOM.render(<SongSection />, document.getElementById('songs-section'));
-		
-		var tracksRes = albumDetails.albumTracks; 
-		var albumLengthArr = []
 		var arr;
-		activeTracksRes = true;
-		function create(x, y) {
-			arr = new Array(x);
-
-			for (var i = 0; i < x; i++) {
-				arr[i] = new Array(y);
+		//var trackInfo;
+		
+		var createTrackEnv = function(albLen) {
+			alert(albLen);
+			function SongSection() {
+				return (
+					<div>
+						<h1 className="main-body-header">Songs</h1>
+						<div id="songs-album">
+						</div>
+					</div>
+				);
 			}
-
-			return arr;
-		}
-		
-		// Make sure to put something to display if there is no tracks listed!
-		
-		create(tracksRes.track.length, 3); //Gets the length of the album
-		
-		for (var songCount = 0; songCount < tracksRes.track.length; songCount++) {
-			var toMinutes = Math.floor(tracksRes.track[songCount].duration / 60)
-			var toSeconds = tracksRes.track[songCount].duration - toMinutes * 60;
+			
+			ReactDOM.render(<SongSection />, document.getElementById('songs-section'));	
 				
-			arr[songCount][0] = tracksRes.track[songCount].name
-			if (toSeconds < 10) { // Adds a 0 if to seconds is less than 10, instead of (4:4) it will be (4:40)
-				toSeconds = '0' + toSeconds;
-			} 
+			var albumLengthArr = []
+			
+			activeTracksRes = true;
+			function create(x, y) {
+				arr = new Array(x);
 
-			albumLengthArr.push(parseInt(tracksRes.track[songCount].duration, 10));
-			if (toMinutes + ':' + toSeconds === '0:00') {
-				arr[songCount][1] = 'Not Listed';
-			} else {				
-				arr[songCount][1] = toMinutes + ':' + toSeconds
+				for (var i = 0; i < x; i++) {
+					arr[i] = new Array(y);
+				}
+
+				return arr;
 			}
-		}
 			
-			// if (tracksRes.album.tracks.track.length != 0) {
-			//	console.log(arr[albumSongCount])
-			//	arr[albumSongCount][2] = tracksRes.album.tracks.track.length;
-			//} 
+			// Make sure to put something to display if there is no tracks listed!
+			console.log(albLen);
+			create(albLen, 3); //Gets the length of the album
 			
-		var sum = albumLengthArr.reduce(function (a, b) {
-			return a + b;
-		}, 0);
+			var trackDuration;
+			var trackName;
 			
-		var tMinutes = Math.floor(sum / 60)
-		var tSeconds = sum - toMinutes * 60;
-		tSeconds = tSeconds.toString().slice(0, 2);
-			
-		var albumLength = tMinutes.toString() + ':' + tSeconds;
-			
-		if (tMinutes > 60) {
-			var minsFloor = tMinutes / 60
-			albumLength = Math.floor(minsFloor) + ' hr ' + tMinutes.toString().slice(1, 2) + ' min';
-		}
-			
-			
-			
-		console.log(albumLength);
-			
-		var tracksOf = tracksRes.track
+			console.log(trackArray);
+			for (var songCount = 0; songCount < albLen; songCount++) {
+				
+				if (routeMBID != true) {
+					trackDuration = tracksRes.track[songCount].duration
+					trackName = tracksRes.track[songCount].name
+				} else {
+					trackDuration = trackArray[songCount].track.duration;
+					trackName = trackArray[songCount].track.name
+				}
+				
+				var toMinutes = Math.floor(trackDuration / 60)
+				var toSeconds = trackDuration - toMinutes * 60;
+				console.log(trackName);
+				arr[songCount][0] = trackName;
+				if (toSeconds < 10) { // Adds a 0 if to seconds is less than 10, instead of (4:4) it will be (4:40)
+					toSeconds = '0' + toSeconds;
+				} 
+
+				albumLengthArr.push(parseInt(trackDuration, 10));
+				if (toMinutes + ':' + toSeconds === '0:00') {
+					arr[songCount][1] = 'Not Listed';
+				} else {				
+					arr[songCount][1] = toMinutes + ':' + toSeconds
+				}
+
+			}
+				
+				// if (tracksRes.album.tracks.track.length != 0) {
+				//	console.log(arr[albumSongCount])
+				//	arr[albumSongCount][2] = tracksRes.album.tracks.track.length;
+				//} 
+				
+			var sum = albumLengthArr.reduce(function (a, b) {
+				return a + b;
+			}, 0);
+				
+			var tMinutes = Math.floor(sum / 60)
+			var tSeconds = sum - toMinutes * 60;
+			tSeconds = tSeconds.toString().slice(0, 2);
+				
+			var albumLength = tMinutes.toString() + ':' + tSeconds;
+				
+			if (tMinutes > 60) {
+				var minsFloor = tMinutes / 60
+				albumLength = Math.floor(minsFloor) + ' hr ' + tMinutes.toString().slice(1, 2) + ' min';
+			}
+				
+				
+			console.log(albumLength);
 		
-		if (tracksOf.length === 0) {
+		
+		
+		
+		//var tracksOf = tracksRes.track
+		
+		if (albLen === 0) {
 			function NoSongs() {
 				return (
 					<div id="no-events" className="text-center">
@@ -607,26 +781,105 @@ $.getJSON('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + a
 						<p>Sorry, no songs have been listed for this album!</p>
 					</div>
 				);
-			}
-				
+			}	
 			ReactDOM.render(<NoSongs />, document.getElementById('songs-album'));
 		} else {
-			const songsOf = arr.map((arr) =>
+			const songsOf = arr.map((arr, i) =>
 				<div className="col-md-12 album-song-div">
 					<div className="album-data">
-						<p>{arr[0]}</p>
+						<p className="song-name">{arr[0]}</p>
 						<p className="song-time">{arr[1]}</p>
+						
+						<div id={'song-details-' + i} className="song-details">
+						</div>
 					</div>
 				</div>
 			);
-
 			ReactDOM.render(
-				<div>{songsOf}</div>,
+				<div id="songs-container">{songsOf}</div>,
 				document.getElementById('songs-album')
 			);
-		}
 			
-		console.log(albumLength);
+			$('.album-song-div').click(function() {
+				track = $(this).find('.song-name').text();
+				$('.active-track').removeClass('active-track');
+				$('.song-details-div').css('display', 'none');/* .css('display', 'none'); */
+				
+				clickTrack(track)
+			});
+		}
+		
+		var trackInfo = function() {
+			$(".song-name").filter(function() {
+				return $(this).text() === track;
+			}).parent().addClass('active-track');
+				
+			if ($('.active-track').length === 0) { // If 'active-track' hasn't been added, there is probably something different about the song's name
+				$(".song-name").filter(function() {
+					return track.indexOf($(this).text()) >= 0; // If the 'track name' has an indexOf( track name on album) = to 0, then add the class to that track, this is a fallback since some track names have added text (i.e, feat. artist), where as the track on the album will not
+				}).parent().addClass('active-track');
+			}
+				
+			var activeTrackID = $('.active-track').find('.song-details').attr('id');
+
+			function SongDetails() {
+				return (
+					<div className="song-details-div">
+						<p>Listeners: {trackDetails.trackListeners}</p>
+						<p>Play count: {trackDetails.trackPlayCount}</p><br></br>
+						<p>{trackDetails.trackWiki}</p>
+					</div>
+				);
+			}
+					
+			ReactDOM.render(<SongDetails />, document.getElementById(activeTrackID));
+			$('html').animate({
+				scrollTop: $("#" + activeTrackID).parent().offset().top
+			});
+		}
+		if (track != undefined) {	
+			trackInfo();
+		} else if (track === undefined) {
+			alert('it no go');
+		}
+
+		function clickTrack(trackClicked) {
+			$.getJSON('https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=408297105ca57d03165dad654e5af37c&artist=' + artistOf + '&track=' + trackClicked + '&lang=' + supportedLanguages[languageIndex] + '&format=json', function(response) {
+				var tResponse = response;
+				console.log(response);
+				
+				var playCount = tResponse.track.playcount;
+				var listenersTrack = tResponse.track.listeners;
+				
+				function toNumber(num) {
+					return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				}
+				
+				trackDetails = {
+					trackPlayCount: toNumber(playCount),
+					trackListeners: toNumber(listenersTrack),
+					trackMBID: tResponse.track.mbid,
+					trackTags: tResponse.track.toptags,
+					trackAlbumTitle: tResponse.track.album.title,
+					trackAlbumMBID: tResponse.track.album.mbid,
+					trackLastFmLinks: [tResponse.track.url, tResponse.track.album.url],
+					trackWiki: 'No description listed',
+				}
+				
+				if (tResponse.track.wiki != undefined) {
+					trackDetails.trackWiki = tResponse.track.wiki.summary;
+				}
+
+				trackInfo();
+			});
+		}
+	}
+	
+	if (routeMBID === false) {
+		createTrackEnv(trackLen);
+	}
+
+		//console.log(albumLength);
 			
 		/* if (arr[albumSongCount] != undefined) {
 			function MetaDataOf() {
@@ -650,12 +903,10 @@ $.getJSON('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + a
 			seatGeekFunction(albumDetails.albumArtist);
 		});
 	});
-	
-}  else if (typeArtistAlbum === 'track') {
-		$.getJSON('	://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=' + lastAPIKey + '&artist=' + queryOf + '&track=' + trackOf + '&format=json', function(response) { 
-			var trackResponse = response
-			console.log(trackResponse);	
-		});
+}
+
+if (typeArtistAlbum === 'album') {
+	AlbumGet()
 }
 
 var seatGeekFunction = function(artistName) {
@@ -804,7 +1055,7 @@ var reactRun = function() {
 		return (
 			<div className="header-meta-data">
 				<h3 className="meta-header">Listeners:
-				<small id="listeners-of"> {props.listnersOf} </small></h3>
+				<small id="listeners-of"> {props.listenersOf} </small></h3>
 				<h3 id="available" className="meta-header">Available On:
 				<small id="avail-on"> </small></h3>
 			</div>
@@ -836,7 +1087,7 @@ var reactRun = function() {
 		ReactDOM.render(
 		  <div>
 		  <NameOf name={headerDetails.nameOf} bio={headerDetails.bioOf} />
-		  <HeaderMeta listnersOf={headerDetails.listnersOf} />
+		  <HeaderMeta listenersOf={headerDetails.listenersOf} />
 		  </div>,
 		  document.getElementById('main-header-con')
 		);
@@ -851,7 +1102,7 @@ var reactRun = function() {
 		ReactDOM.render(
 		  <div>
 		  <NameOf name={albumDetails.albumName} bio={albumDetails.albumBio.substring(0, 250) + '...'} />
-		  <HeaderMeta listnersOf={albumDetails.albumListeners} />
+		  <HeaderMeta listenersOf={albumDetails.albumListeners} />
 		  </div>,
 		  document.getElementById('main-header-con')
 		);
@@ -974,6 +1225,10 @@ var reactRun = function() {
 		$('#bio-detail').addClass('active')
 		bioSection();
 		//aria-expanded="true"
+		
+		$('html').animate({
+			scrollTop: $("#biography-section").offset().top
+		});
 	});
 	
 	$('#album-songs-section').on('click', '#view-more-btn', function () {

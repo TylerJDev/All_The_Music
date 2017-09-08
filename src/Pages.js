@@ -68,13 +68,12 @@ const About = () => (
 	<div>
 		<div id="jumbotron-about" className="jumbotron">
 			<div id="jumbo-text" className="text-center">
-			  <h1 className="display-3">About the site</h1>
-			  <p className="lead">And the person that made it</p>
+			  <h1 className="display-3">About</h1>
 			</div>
 		</div>
 		
 		<div id="about-con" className="container">
-			<h1>About the site</h1>
+			<h1>About</h1>
 			<div className="col-md-12">
 				<div className="col-md-6">
 					<p>The idea of this site was to allow easy access to your favorite artists, albums and tracks. With the help of Last.FM, and other APIs, I was allowed to fully expand on this idea.</p>
@@ -136,7 +135,7 @@ function MainIndex() {
 		</div>
 	</div>
 
-	<div id="main-con" className="container-fluid">
+	<div id="main-con" className="container-fluid main-container">
 		<div id="main-row" className="row">
 			<div id="main-sidebar" className="col-xs-12 col-md-3">
 			</div>

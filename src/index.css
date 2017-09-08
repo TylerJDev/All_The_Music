@@ -185,6 +185,7 @@
 
 #main-con {
 	margin-top: 50px;
+	overflow: hidden;
 }
 
 /*Main Sidebar*/
@@ -386,6 +387,12 @@
 	transition: 300ms;
 }
 
+.active-track {
+	background-color: #eee;
+	
+
+}
+
 /* Events Section */
 
 .meta-event {
@@ -466,6 +473,7 @@
 
 .album-song-div {
 	border-bottom: 2px solid #eee;
+	padding: 0px;
 }
 
 .album-song-div:last-of-type {
@@ -479,6 +487,16 @@
 
 #artist-name {
 	font-size: 16px;
+}
+
+.song-details p {
+	font-size: 16px !important;
+	margin: 10px;
+}
+
+.album-data:hover {
+	background-color: #ddd;
+	cursor: pointer;
 }
 
 /* Tabs */
@@ -639,7 +657,7 @@ footer {
 /* About */
 
 #jumbotron-about {
-	background-image: url('https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=');
+	background-image: url('photo-about.jpg');
 	padding-left: 50px;
 	padding-right: 50px;
 	height: 600px; 
@@ -917,6 +935,12 @@ footer {
 		display: block;
 		padding: 10px;
 	}
+	
+	/* Search */
+	
+	.results-name {
+		width: 180px;
+	}
 
 }
 
@@ -1045,5 +1069,12 @@ footer {
 	
 	.album-photo-col {
 		height: 255px;
+	}
+	
+	.logo-brand {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 0px;
+		margin-right: 0px;
 	}
 }

@@ -22,14 +22,14 @@ var oldQuery; // Keeps track of query
 var prevCall; // Used to keep track of previous page (currentPage), (explained more when it's used)
 var currentPage = 1; // Current page on the results of the API, (i.e, page 1 = results 1-84, page 2 = results 84 - 168)
 var page = 1; // This is used to keep track of the page, it resets back to 1 (1 being the default starting point) when a new page is called (currentPage)
-var currentLink = 'https://tylerjdev.github.io/'
+var currentLink = 'http://localhost:3000/src/';//'https://tylerjdev.github.io/'
 
 var searchFunc = function(query, pageOf) {
 	var queryLimit = 84; // Limit of results you'll get from the API
 	function Loader() {
 		return (
 			  <div id="four-oh-four" className="text-center">
-				<img src={four_oh_four} id="404-image"></img>
+				<img src={four_oh_four}></img>
 			</div>
 		);
 	}
@@ -47,7 +47,7 @@ var searchFunc = function(query, pageOf) {
 		
 		if (oldQuery != query) {
 			currentPage = 1;
-			page = 1;
+			page = 1; //default 1
 		}
 		$.getJSON('https://ws.audioscrobbler.com/2.0/?method=' + currentSearch + '.search&' + currentSearch + '=' + query + '&limit=' + queryLimit + '&page=' + currentPage + '&api_key=' + lastAPIKey + '&format=json', function(response) {
 			results = response;
@@ -187,7 +187,9 @@ var searchFunc = function(query, pageOf) {
 		
 		function searchArtist() {
 			currentSearch = 'artist';
-			artistTab = true;	
+			artistTab = true;
+/* 			var oldPage = page;
+			alert(oldPage); */
 			page = 1;
 			if (albumTab === true || trackTab === true) {
 				albumTab = false;
@@ -257,7 +259,10 @@ var searchFunc = function(query, pageOf) {
 		// page 2 = 24, > 36
 		// page 3 = 36, > 48
 		console.log('Current: ' + (page - 1) * 12 + ' Next: ' + (12 * page) + ' Current API Page: ' + currentPage);
-	
+
+		/* If I want the 'page' to stay if a user clicks a tab, then clicks back to the previous tab they were on, 
+		I could stick the page in the array (note, need to check what type it is (hence x) artist = 0, and so on) 'searchHoldMulti[x][2]' have it equal the current = page, then if the user click backs, have something check if there's anything at the '2nd' index, if there is, run with that page, if not continue with the default 1 */
+
 		for (var resultImgCount = (page - 1) * 12; resultImgCount < arrayLen; resultImgCount++) {
 			console.log('if ' + resultImgCount + ' < ' + arrayLen);
 			if (searchArtists[resultImgCount] != undefined) {	
@@ -291,7 +296,12 @@ var searchFunc = function(query, pageOf) {
 					resultsArray[counter][4] = "";
 				} else if (currentSearch === 'track') {
 					resultsArray[counter][3] = searchArtists[resultImgCount].artist + '&track=' + resultsArray[counter][1];
-					resultsArray[counter][4] = "By " + searchArtists[resultImgCount].artist;
+					if (searchArtists[resultImgCount].artist.length > 87) {
+						resultsArray[counter][4] = "By " + searchArtists[resultImgCount].artist.substring(0, 87) + '...';
+					} else {
+						resultsArray[counter][4] = "By " + searchArtists[resultImgCount].artist;
+					}
+					 //34
 				}
 					
 				counter++;

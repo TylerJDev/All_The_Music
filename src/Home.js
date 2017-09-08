@@ -7,7 +7,7 @@ import './slick.css';
 import {lastAPIKey, disc_load} from './index.js'
 var dataArray = []
 var storedData = JSON.parse(sessionStorage.getItem("dataArray"));
-var currentLink = 'https://tylerjdev.github.io/'
+var currentLink = 'http://localhost:3000/src/'; //'https://tylerjdev.github.io/'
 
 $(document).ready(function(){
   /* Temp code to display 'picks', (this will be done backend side, getting data from MusicBrainz, rather than self supplied) 
@@ -81,7 +81,7 @@ const Home = () => (
 		</div>
 	</div>
 	
-	<div className="container">
+	<div className="container carousel-con">
 		<h1 className="text-center">Top Picks<br></br>
 		<small>Featuring fresh albums!</small></h1>
 		<div id="main-carousel">
@@ -166,6 +166,7 @@ function createPicks() {
 	var trackArtistHold;
 	
 	function getTopOf(type) {
+		
 		if (JSON.parse(sessionStorage.getItem("dataArray" + getTopUser[count])) != null) {
 			trackArtistHold = JSON.parse(sessionStorage.getItem("dataArray" + getTopUser[count]))
 			createTracksAlbums();
@@ -175,6 +176,7 @@ function createPicks() {
 				var typeResponse;
 				var imageQuality;
 				var amountOf;
+				console.log(trackArtistResponse);
 				
 				if (type === getTopUser[1]) {
 					typeResponse = trackArtistResponse.toptracks.track
@@ -212,7 +214,6 @@ function createPicks() {
 					
 				}
 				sessionStorage.setItem("dataArray" + getTopUser[count], JSON.stringify(trackArtistHold));
-				
 				createTracksAlbums()
 			
 			});
@@ -239,7 +240,7 @@ function createPicks() {
 			} else if (type === getTopUser[1]) {
 				const TracksPick = trackArtistHold.map((trackArtistHold) =>
 					<div className="track-div">
-						<a href={currentLink + 'index.html?query='} className="track-link">
+						<a href={currentLink + 'index.html?query=' + trackArtistHold[1] + '&track=' + trackArtistHold[0] + '&type=track'} className="track-link">
 							<div className="track-album-box" style={{backgroundImage: "url(" + trackArtistHold[2] + ")"}}></div>
 							<h3 className="track-header">{trackArtistHold[0]}</h3>
 						</a>
@@ -256,7 +257,7 @@ function createPicks() {
 			}
 		}
 		
-		if (count < getTopUser.length - 1) {
+		if (count < getTopUser.length) {
 			count++
 			getTopOf(getTopUser[count])
 		}

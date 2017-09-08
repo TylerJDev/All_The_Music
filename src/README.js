@@ -8,11 +8,13 @@ Profile page,
 'Charts' page,
 
 // -- TODO
+!! Finish track 'page', fix this error http://localhost:3000/src/index.html?query=L%27Orange&track=Need%20You%20(feat.%20Blu)&type=track (caused because the track name includes words that the track on the album does not have!! &&&& DON'T FORGET TO PUT BACK LOCALHOST LINK ON SEARCH.JS (Don't forget to reply to New zealand pal btw)
+
 Add something for songs (to look up, have their own page?)
-Rework site for mobile display
+Rework site for mobile display (Like albums on artist page)
 Add more comments to the code
-Fix where main page might put top artists in top tracks section (Refresh 3~ times on main page)
 Add localstorage to artists pages (album tab)
+Finish Pages section
 
 // -- TODO (FINISHED)
 Add something better then 'No description listed' for an album without a wiki, possibly a way to add your own summary (Via last.fm API)
@@ -33,9 +35,15 @@ Have 'view more' btn (under albums) to go to that tab
 Fix margin/sizing with youtube display in smaller displays example: (http://localhost:3000/src/index.html?query=The+Pharcyde&type=artist) // Test a smaller display to see
 Add (front page) to localstorage
 Change logo
+/Fix where main page might put top artists in top tracks section (Refresh 3~ times on main page)
+/Change character limit on search section (artists) (i.e, search Do not fire! Madvillain, go to tracks, see track 'do a couple of things')
+/On 'read more' btn click, scroll down to the section
+/Find the perfect margin for 'the meta-data-header' (i.e, listeners, albums), example: (http://localhost:3000/src/index.html?query=Boom%20Clap%20Bachelors&type=artist) // Not needed, since visible at all margins
+/Add so if you click a different tab (i.e, 'tracks', then click back to 'artists', it'll save the page you were on // Did not add this, seems like it's better just to keep it as it is
 
 /* -- Errors */
 // > Artist's pages that display errors;
+- http://localhost:3000/src/index.html?query=%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%CC%81%D0%B9+%D0%A0%D1%8B%CC%81%D0%B1%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2&type=artist
 - Blu & Exile > http://localhost:3000/src/index.html?query=Blu+&+Exile&type=artist
 - Gorillaz > http://localhost:3000/src/index.html?query=Blu+&+Exile&type=artist
 - Search something twice (quickly), (i.e 'blu'), then click tracks, should get an error
@@ -52,19 +60,16 @@ Change logo
 Make sure MusicBrainz gets the correct artist
 Figure out proper attribution, (i.e, glyphicons, logos, apis, etc.)
 Possibly add color to the 'Available on' links when the link is hovered via the keyboard (i.e, tab)
-Find the perfect margin for 'the meta-data-header' (i.e, listeners, albums), example: (http://localhost:3000/src/index.html?query=Boom%20Clap%20Bachelors&type=artist)
 Go back to seatgeek function call, and make sure everything is complete (i.e, make sure if there are more than '1' artist(s) at the last level, to properly handle them
-Add so if you click a different tab (i.e, 'tracks', then click back to 'artists', it'll save the page you were on
 Make sure to save data whenever it can be saved
 /Only use one youtube if MusicBrainz has multiple youtube links, example : (http://localhost:3000/src/index.html?query=Blur&type=artist)\
 Condense the search results to have less pages
 Integrate last.fm user capabilities into site
-On 'read more' btn click, scroll down to the section
-Finish Pages section
 Add something to prevent multiple calls when searching (If you press enter multiple times) [Already done, but could possibly be improved]
 Change Albums & songs to just Albums
 Finish 'photos' tab
 Create Contact page
+Change favicon
 
 // -- Responsive Design > TODO
 Add burger menu, or way to select navbar links on smaller display

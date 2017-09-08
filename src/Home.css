@@ -6,7 +6,7 @@ body {
 	padding-left: 50px;
 	padding-right: 50px;
 	height: 800px;
-	background-image: url('https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop='); 
+	background-image: url('photo-main.jpg'); 
 	background-size: cover;
 	background-position: 50% 20%;
 }
@@ -98,6 +98,10 @@ body {
 .slick-div {
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+.carousel-con {
+	overflow: hidden;
 }
 
 /**/
