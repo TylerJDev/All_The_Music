@@ -103,6 +103,10 @@ if (typeArtistAlbum === 'track') {
 			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 		
+		if (tResponse.track.album === undefined && tResponse.track.mbid === undefined) { /* TEMP FIX */
+			window.location.href="index.html" + "?query=" + artistOf + "&type=artist";
+		} 
+
 		trackDetails = {
 			trackPlayCount: toNumber(playCount),
 			trackListeners: toNumber(listenersTrack),
@@ -597,8 +601,7 @@ var AlbumGet = function(track) {
 		var trackArray;
 		
 		var routeMBID = false;
-		
-		if (albumResponse.album.tracks.track.length === 0 && trackDetails.trackAlbumMBID != undefined) {
+		if (trackDetails != undefined && albumResponse.album.tracks.track.length === 0 && trackDetails.trackAlbumMBID != undefined) {
 			routeMBID = true;
 			$.getJSON('http://musicbrainz.org/ws/2/release/' + trackDetails.trackAlbumMBID + '?inc=artist-credits+url-rels+labels+discids+recordings&fmt=json', function(response) {
 				var mbResponse = response
@@ -662,7 +665,6 @@ var AlbumGet = function(track) {
 				
 				albumDetails.albumTracks = trackArray;
 				trackLen = trackCount;
-				alert(trackLen);
 				console.log(trackArray);
 				/* What I need to get from MBID artist tracks..
 					Name - 
@@ -683,7 +685,6 @@ var AlbumGet = function(track) {
 		//var trackInfo;
 		
 		var createTrackEnv = function(albLen) {
-			alert(albLen);
 			function SongSection() {
 				return (
 					<div>
@@ -840,7 +841,7 @@ var AlbumGet = function(track) {
 		if (track != undefined) {	
 			trackInfo();
 		} else if (track === undefined) {
-			alert('it no go');
+			//alert(' ');
 		}
 
 		function clickTrack(trackClicked) {
@@ -1795,4 +1796,4 @@ $('.input-form').on('submit', function () {
     return false;
 });
 
-export {lastAPIKey, disc_load};
+export {lastAPIKey, disc_load, supportedLanguages, languageIndex};

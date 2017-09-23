@@ -7,7 +7,7 @@ import './slick.css';
 import {lastAPIKey, disc_load} from './index.js'
 var dataArray = []
 var storedData = JSON.parse(sessionStorage.getItem("dataArray"));
-var currentLink = 'http://localhost:3000/src/'; //'https://tylerjdev.github.io/'
+var currentLink = 'https://tylerjdev.github.io/';
 
 $(document).ready(function(){
   /* Temp code to display 'picks', (this will be done backend side, getting data from MusicBrainz, rather than self supplied) 

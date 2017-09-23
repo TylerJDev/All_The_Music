@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import './Navbar.css';
 import {Home} from './Home.js';
+import {Charts} from './Charts.js';
 import lastfm_image from './lastfm_image.png';
 import seatgeek_image from './seatgeek_image.png';
 import musicbrainz_image from './musicbrainz_image.png';
@@ -14,7 +15,7 @@ import {
   Link
 } from 'react-router-dom'
 
-var currentLink = 'https://tylerjdev.github.io/'
+var currentLink = 'http://localhost:3000/'//'https://tylerjdev.github.io/'
 
 const NavBar = () => (
   <Router>
@@ -57,7 +58,7 @@ const Pages = () => (
  <Router>
 	<div>
   	<Route exact path="/" component={Home}/>
-	<Route path="/Charts" component={FourOhFour}/>
+	<Route path="/Charts" component={Charts}/>
 	<Route path="/Profile" component={FourOhFour}/>
 	<Route path="/About" component={About}/>
 	</div>
@@ -95,18 +96,16 @@ const About = () => (
 )
 
 /* const Charts = () => (
-  <div id="four-oh-four" className="text-center">
-    <img src={four_oh_four} id="404-image"></img>
-	<h2 id="404-header">404<br></br>
-	PAGE NOT FOUND</h2>
+  <div id="charts-page">
+	
   </div>
-)
+) */
 
 const Profile = () => (
   <div>
     <h2>Profile</h2>
   </div>
-) */
+)
 
 const FourOhFour = () => (
   <div id="four-oh-four" className="text-center">
