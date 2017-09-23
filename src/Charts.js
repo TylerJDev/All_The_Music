@@ -7,7 +7,7 @@ import './slick.css';
 import {lastAPIKey, disc_load, supportedLanguages, languageIndex} from './index.js'
 var dataArray = []
 var storedData = JSON.parse(sessionStorage.getItem("dataArray"));
-var currentLink = 'http://localhost:3000/src/';
+var currentLink = 'https://tylerjdev.github.io/';
 var artistName;
 // dont forget to put a if check so this will only run if condition is met
 const Charts = () => (

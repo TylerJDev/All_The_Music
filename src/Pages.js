@@ -15,7 +15,7 @@ import {
   Link
 } from 'react-router-dom'
 
-var currentLink = 'http://localhost:3000/'//'https://tylerjdev.github.io/'
+var currentLink = 'https://tylerjdev.github.io/'//'https://tylerjdev.github.io/'
 
 const NavBar = () => (
   <Router>
