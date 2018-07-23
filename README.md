@@ -5,11 +5,11 @@ All The Music is a website that allows you to look up different artists, albums 
 
 ## TO DO
   - Refactor parts of JS
+  - Last.FM doesn't vet their artist pictures, so ANYTHING could be the featured image, I need to find a workaround.
 
 # Issues
   - Get albums from tracks where LAST.FM doesn't have any album data
   - Empty album cover on albums with undefined data @ index.html?query=Blu+&+Madlib&type=artist && index.html?query=Blu+&+Exile&type=artist
-  - Last.FM doesn't vet their artist pictures, so ANYTHING could be the featured image, I need to find a workaround.
 
 # Future Updates
   - Photo section for artists, albums.. Could integrate Instagram feed
