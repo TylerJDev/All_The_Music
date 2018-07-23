@@ -128,3 +128,18 @@
 .active-dropdown {
 	background-color: #eee;
 }
+
+#genre-charts {
+	margin-left: 65px;
+	
+}
+
+#genre-charts h2 {
+	margin-right: 10px;
+	display: inline;
+}
+
+.tags-con a {
+	display: inline-block;
+	margin: 5px 0px 10px 0px;
+}

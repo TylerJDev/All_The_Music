@@ -1,0 +1,41 @@
+#genre-search {
+	margin: 0 auto;
+	border-bottom: 1px solid #eee;
+}
+
+#genres-table {
+	margin: 0 auto;
+	max-width: 700px;
+	font-size: 20px;
+	margin-top: 50px;
+	margin-bottom: 70px;
+}
+.genres-container {
+	margin-bottom: 100px;
+}
+
+.row-link {
+	display: block;
+	margin: 15px;
+}
+
+#genre-pagination {
+	display: block;
+}
+
+.genre-pagination-btn {
+	border: none;
+	margin: 10px 10px 10px 10px;
+	padding: 10px 15px 10px 15px;
+	border-radius: 10px;
+	background-color: white;
+	border: 1px solid #eee;
+}
+
+.genre-pagination-btn:hover, .genre-pagination-btn:active, .genre-pagination-btn:focus  {
+	background-color: #eee;
+}
+
+.active-btn {
+	background-color: #eee;
+}

@@ -1,11 +1,11 @@
 {
-  "short_name": "Music Lookup",
-  "name": "Music Artists Lookup",
+  "short_name": "All The Music",
+  "name": "Music Artists, Songs and Albums Lookup",
   "icons": [
     {
       "src": "disc_logo",
       "sizes": "32x32",
-      "type": "image/png"
+      "type": "image/x-icon"
     }
   ],
   "start_url": "./index.html",

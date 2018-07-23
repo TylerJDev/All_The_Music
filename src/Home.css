@@ -6,14 +6,23 @@ body {
 	padding-left: 50px;
 	padding-right: 50px;
 	height: 800px;
-	background-image: url('photo-main.jpg'); 
+	background-image: url('photo-main.jpg');
 	background-size: cover;
 	background-position: 50% 20%;
 }
 
+#jumbo-main-header {
+	text-shadow: 1px 2px 6px #212121;
+}
+
+#jumbo-second-header {
+	font-size: 30px;
+	text-shadow: 1px 2px 6px #212121;
+}
+
 #jumbo-text {
 	margin-top: 200px;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Abel', sans-serif;
 	color: white;
 }
 
@@ -22,15 +31,14 @@ body {
 }
 
 #jumbo-input {
-	border-radius: 0px 0px 0px 0px;
-	border: none;
+	border-radius: 5px;
+	border: 1px solid #777;
 	height: 40px;
 	width: 300px;
 	color: #212121;
 	padding-left: 15px;
 	padding-right: 15px;
 	font-size: 18px;
-	padding-top: 0px;
 }
 
 #jumbo-btn {
@@ -39,6 +47,11 @@ body {
 	background-color: #777;
 	border: none;
 	color: #ddd;
+	display: block;
+	width: 130px;
+	border-radius: 5px;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 /* Carousel */
@@ -53,6 +66,7 @@ body {
 	margin-right: 5px;
 	background-size: cover;
 	box-shadow: 0px 4px 6px 0px #777;
+	background-position: 50% 50%;
 }
 
 .album-pick-title {
@@ -134,6 +148,11 @@ body {
 
 #top-artist-header {
 	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.see-more-link {
+	margin-left: 10px;
 }
 
 #top-tracks-div {
@@ -144,6 +163,7 @@ body {
 	font-size: 20px;
 	color: #777;
 	margin-bottom: 20px;
+	display: inline-block;
 }
 
 .track-album-box {
@@ -171,6 +191,10 @@ body {
 	margin-bottom: 5px;
 }
 
+.track-div:last-of-type {
+	border-bottom: none;
+}
+
 @media screen and (max-width: 1300px) {
 	#jumbotron-main {
 		height: 600px;
@@ -182,63 +206,65 @@ body {
 	#jumbotron-main, #jumbotron-about {
 		height: 500px;
 	}
-	
+
 	#jumbo-text {
 		margin-top: 150px;
 		text-shadow: 0 1px #212121;
 	}
-	
+
 	.artist-div {
 		border-bottom: 1px solid #eee;
 		padding-bottom: 5px;
 	}
-	
+
 	.artist-header {
 		display: none;
 	}
-	
+
 	.artist-album-box {
 		height: 50px;
 		width: 50px;
 		margin-top: 10px;
 		display: inline-block;
 	}
-	
+
 	.artist-header-media {
 		display: inline-block;
 		font-size: 19px;
 		color: #212121;
 		text-decoration: none;
 		margin-left: 5px;
-		
+
 	}
 
 	#jumbotron-main, #jumbotron-about {
 		height: 300px;
 	}
-	
+
 	#jumbo-text {
 		margin-top: 30px;
 	}
-	
+
 	#jumbo-main-header {
 		font-size: 24px;
 	}
-	
+
 	#jumbo-second-header {
 		font-size: 16px;
 	}
-	
+
 	#jumbo-input {
 		width: 100%;
 		background: transparent;
 		color: white;
+		border: none;
 		border-bottom: 1px solid white;
 		text-align: center;
 		opacity: 1;
+		border-radius: 0px;
 	}
-	
-	
+
+
 	#jumbo-input::-webkit-input-placeholder { /* Chrome */
 	  color: white;
 	}
@@ -253,33 +279,36 @@ body {
 	  color: white;
 	  opacity: 1;
 	}
-	
+
 	#jumbo-btn {
 		display: none;
 	}
-	
+
 	/* Put after navbar breakpoint */
-	
+
 	.track-header {
-		font-size: 17px;
+		font-size: 14px;
 	}
-	
+
 	.navbar-nav {
 		float: left;
 	}
-	
+
 	#input-form {
 		width: 100%;
 		float: left;
 	}
-	
+
 	#input-search {
 		width: 100% !important;
 	}
-	
+
 	.carousel-album {
 		height: 200px !important;
 	}
-	
-}
 
+	#top-tracks-div {
+		margin-top: 20px;
+	}
+
+}

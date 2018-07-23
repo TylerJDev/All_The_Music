@@ -22,7 +22,7 @@
   animation-name: logo;
   animation-duration: 2000ms;
   animation-iteration-count: infinite;
-  animation-timing-function: linear; 
+  animation-timing-function: linear;
 }
 
 @keyframes logo {
@@ -67,7 +67,7 @@
 	transition: 500ms;
 }
 
-.form-control:hover, .form-control:active {	
+.form-control:hover, .form-control:active {
 	transition: 300ms;
 	border-bottom: 1px solid #777;
 	box-shadow: none;
@@ -90,9 +90,9 @@
 	padding: 10px;
 }
 
-.navbar-form, .navbar-header {
+/* .navbar-form, .navbar-header {
 	width: 400px;
-}
+} */
 
 /*Header*/
 #main-header {
@@ -195,14 +195,45 @@
 	padding-top: 20px;
 	padding-bottom: 5px;
 	font-family: 'Montserrat', sans-serif;
-	box-shadow:	0px 1px 1px 0px rgba(33, 33, 33, 0.5);
-	height: 200px;
+	min-height: 200px;
 	padding: 20px;
 	color: black;
 }
 
+#sidebar-con-1 {
+	margin-bottom: 50px;
+}
+
+.tag-box {
+	display: inline-block;
+	border: 1px solid #424242;
+	padding: 5px;
+	margin: 3px;
+	background-color: #424242;
+	border-radius: 10px;
+	color: white;
+	text-decoration: none;
+	transition: 500ms;
+}
+
+.tag-box:hover, .tag-box:active, .tag-box:focus {
+	display: inline-block;
+	border: 1px solid #424242;
+	background-color: white;
+	color: #424242;
+	transition: 500ms;
+}
+
+.side-on {
+	font-size: 26px;
+	color: #212121;
+	padding: 2px;
+	margin: 0px 10px 0px 10px;
+
+}
+
 /*Main Body*/
-	
+
 #main-row {
 	padding: 30px;
 }
@@ -213,7 +244,7 @@
 	padding-bottom: 20px;
 	font-family: 'Montserrat', sans-serif;
 	box-shadow:	0px 5px 5px 0px rgba(33, 33, 33, 0.5);
-}	
+}
 
 #main-bio, #top-tracks, #album-section, #events-section, #similar-section, #video-section, #songs-section { /* Edit later*/
 	padding-left: 50px;
@@ -249,6 +280,10 @@
 .main-body-header {
 	border-bottom: 2px solid #eee;
 	padding-bottom: 10px;
+}
+
+#main-sidebar {
+	margin-bottom: 10px;
 }
 
 /* Video Section */
@@ -389,7 +424,7 @@
 
 .active-track {
 	background-color: #eee;
-	
+
 
 }
 
@@ -660,7 +695,7 @@ footer {
 	background-image: url('photo-about.jpg');
 	padding-left: 50px;
 	padding-right: 50px;
-	height: 600px; 
+	height: 400px;
 	background-size: cover;
 	background-position: 50% 20%;
 }
@@ -670,7 +705,52 @@ footer {
 }
 
 #about-con p {
-	font-size: 16px;
+	font-size: 2rem;
+	font-family: 'Raleway', sans-serif;
+}
+
+#about-con h2 {
+	text-align: text-center;
+	font-family: 'Abel', sans-serif;
+	font-size: 4.5rem;
+	margin-bottom: 40px;
+}
+
+#four_con {
+	margin: 100px 0px 100px 0px;
+}
+
+#four_con .col-md-3 {
+	height: 250px;
+	padding: 20px;
+}
+
+.four_oh:hover {
+	height: 250px;
+}
+
+.four_oh {
+	height: 200px;
+	filter: drop-shadow(30px 10px 4px #eee);
+	transition: 500ms;
+}
+
+#contact_me {
+	margin-bottom: 100px;
+}
+
+#contact_me h2 {
+	margin-bottom: 10px;
+}
+
+.contact-icon {
+	font-size: 3.5rem;
+	color: #9E9E9E;
+	margin-right: 10px;
+}
+
+.album-photo-col {
+	min-height: 350px;
 }
 
 /* loader */
@@ -681,7 +761,11 @@ footer {
   display: block;
   animation-duration: 4000ms;
   animation-iteration-count: infinite;
-  animation-timing-function: linear; 
+  animation-timing-function: linear;
+}
+
+.slick-arrow {
+	top: 40% !important;
 }
 
 @keyframes spin {
@@ -743,16 +827,34 @@ footer {
 	transition: 500ms;
 }
 
+.fa-twitter {
+	transition: 500ms;
+}
+
+.fa-twitter:hover {
+	color: #1DA1F2;
+	transition: 500ms;
+}
+
+.fa-facebook {
+	transition: 500ms;
+}
+
+.fa-facebook:hover {
+	color: #3B5998;
+	transition: 500ms;
+}
+
 @media screen and (max-width: 1750px) {
 	.meta-video-box {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	.video-thumb-box {
 		width: calc;
 	}
-	
+
 	#video-image {
 		width: 540px;
 	}
@@ -762,16 +864,16 @@ footer {
 	#video-image {
 		width: 440px;
 	}
-	
+
 	.video-thumb-box {
 		width: 41.66666667%
 	}
-	
+
 	.album-photo {
 		width: 200px;
 		height: 200px;
 	}
-	
+
 	.album-title {
 		font-size: 14px;
 	}
@@ -781,9 +883,14 @@ footer {
 	#video-section {
 		padding-right: 10px;
 	}
-	
+
 	#video-image {
 		width: 420px;
+	}
+
+	#input-search {
+		border: 1px solid #777;
+		border-radius: 2px 2px 2px 2px;
 	}
 }
 
@@ -792,68 +899,111 @@ footer {
 		width: 100%;
 		margin: 0 auto;
 	}
-	
+
 	#video-section {
 		padding-right: 50px;
 	}
-	
+
 	.video-thumb-box {
 		height: 120px;
 		width: 160px;
 	}
-	
+
 	#similar-section {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	
+
+	.navbar-nav li {
+		margin-left: 5px !important;
+		margin-right: 5px !important;
+	}
+
 }
 
-@media screen and (max-width: 991px) { 
+@media screen and (max-width: 991px) {
 	#bg-con {
 		height: 285px;
 	}
-	
+
 	#header-bio {
 		width: 100%;
 	}
-	
+
 	.header-meta-data {
 		margin-top: 30px;
 	}
-	
+
 	#navTabs {
 		margin-bottom: 0px;
 	}
-	
+
 	.box-of-thumb {
 		height: 150px;
 	}
-	
+
 	.result-photo {
 		display: inline-block !important;
 	}
-	
+
 	.results-header {
 		vertical-align: top;
 		font-size: 16px;
 	}
-	
+
 	.results-name {
-		font-size: 15px !important;
+		font-size: 14px !important;
+	}
+
+	.navbar-collapse {
+		width: 50% !important;
+	}
+
+	.navbar-nav > li > a {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	#four_con {
+		display: none;
+	}
+
+	#disc_side {
+		margin: 50px 0px 50px 0px;
 	}
 }
 
-@media screen and (max-width: 767px) { 
+@media screen and (min-width: 767px) and (max-width: 992px) {
+	.album-title {
+		font-size: 2rem;
+		max-width: 500px;
+	}
+
+	.album-photo-col {
+		min-height: 250px;
+		transition: 500ms;
+		padding: 20px;
+		border-radius: 15px;
+	}
+
+	.album-photo-col:hover {
+		background-color: #eee;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	#myNavbar {
+		width: 100% !important;
+	}
 
 	#bg-con {
 		height: 320px;
 	}
-	
+
 	#main-con {
 		margin-top: 10px;
 	}
-	
+
 	#artist-album-dets {
 		color: black;
 		text-align: center;
@@ -883,154 +1033,168 @@ footer {
 		padding-right: 5px;
 		padding-left: 5px;
 	}
-	
+
 	.meta-video-box {
 		display: inline;
 	}
-	
+
 	#yt-title {
 		width: 150px;
 	}
-	
+
 	.event-box {
 		text-align: center;
 		margin-top: 20px;
 		margin-bottom: 20px;
 	}
-	
+
 	.buy-button {
 		display: inline-block;
 	}
-	
+
 	.album-title {
 		width: 150px;
+		font-size: 1.6rem;
 	}
-	
+
 	.event-box {
 		padding-bottom: 20px;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	#main-body {
 		box-shadow: none;
 	}
-	
+
 	.carousel-album {
 		background-position: 50% 50%;
 	}
-	
+
 	#video-holder {
 		width: 100%;
 		height: 390px;
 	}
-	
+
 	.album-type .album-header, .album-type .album-photo {
 		display: block;
 		margin: 0 auto;
 	}
-	
+
 	.album-type .album-title {
 		text-align: center;
 		margin: 0 auto;
 		display: block;
 		padding: 10px;
 	}
-	
+
 	/* Search */
-	
+
 	.results-name {
 		width: 180px;
 	}
 
 }
 
-@media screen and (max-width: 595px) { 
+@media screen and (max-width: 595px) {
 	.meta-video-box {
 		display: inline-block;
 		width: 120px;
 		margin: 5px;
 	}
-	
+
 	.video-thumb-box {
 		height: 90px;
 		width: 120px;
 	}
-	
+
 	#yt-title {
 		display: inline;
 	}
 }
 
-@media screen and (max-width: 545px) { 
+@media screen and (max-width: 545px) {
 	.main-row {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	
+
 	.main-body-header {
 		border-bottom: 1px solid #eee;
 		font-size: 24px;
 	}
-	
+
 	#main-bio {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
-	
+
 	.bio-of {
 		font-size: 14px;
 	}
-	
+
 	.container-fluid {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	#main-row {
 		padding: 0px;
 	}
-	
+
 	#main-body {
 		border: none;
 	}
-	
+
 	.nav-tabs {
 		border: none;
 	}
-	
+
 	.nav-tabs > li {
 		float: initial;
 	}
-	
+
 	.nav-item {
 		padding-bottom: 5px;
 	}
-	
+
 	#navTabs > .nav-tabs > li.active > a {
 		background-color: #ddd;
 		color: #555;
 		border-radius: 0px 0px 0px 0px;
 	}
-	
+
 	.nav-link:hover {
 		border-radius: 0px 0px 0px 0px;
 		border-bottom: none;
 	}
-	
+
 	.album-title {
 		width: 100px;
 	}
-	
+
 	#similar-section {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	.btn-type-2 {
 		font-size: 14px;
 		padding: 8px;
 	}
-		
+
+	#charts-header {
+		font-size: 42px !important;
+	}
+
+	.album-header {
+		font-size: 14px !important;
+	}
+
+	.charts-album-box {
+		width: 75px !important;
+		height: 75px !important;
+	}
+
 
 }
 
@@ -1039,38 +1203,38 @@ footer {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	#video-section {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	.video-list {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	
+
 	.video-thumb-box {
 		height: 80px;
 		width: 100px;
 	}
-	
+
 	.box-of-thumb {
 		height: 120px;
 	}
-	
+
 	#video-image, #video-holder, #widget2 {
 		height: 300px;
 	}
-	
+
 	.album-title {
 		width: 200px;
 	}
-	
+
 	.album-photo-col {
 		height: 255px;
 	}
-	
+
 	.logo-brand {
 		margin-top: 10px;
 		margin-bottom: 10px;
