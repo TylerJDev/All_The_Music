@@ -42,7 +42,7 @@
 }
 
 .form-group {
-	display: flex;
+	display: flex !important;
 }
 /* #nav-listings {
 	margin-left: 90px;
