@@ -1,5 +1,7 @@
 # All The Music
-All The Music lets you view different artists, albums and tracks, aggregated from multiple sources, all from one site!
+All The Music aggregates music data from multiple sources into a single useful website!
+
+Look for your favorite artists, albums, and tracks! Get details for future venues and connect with others through social media!
 
 ***To-Do:***
   - Refactor parts of JS
