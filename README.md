@@ -1,4 +1,6 @@
 # All The Music
+**⚠️ Note - This project is not currently being maintained, but may be picked back up in the future!**
+
 All The Music aggregates music data from multiple sources into a single useful website!
 
 Look for your favorite artists, albums, and tracks! Get details for future venues and connect with others through social media!
